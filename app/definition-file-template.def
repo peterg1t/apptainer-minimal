@@ -1,0 +1,19 @@
+Bootstrap: docker
+from: rockylinux:{{ VERSION }}
+
+%arguments
+
+%environment
+
+%files
+
+%post
+
+%runscript
+
+%labels
+	Author <author-name> 
+	Version <version>
+	Name <program-name>
+
+
