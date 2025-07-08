@@ -1,0 +1,40 @@
+Bootstrap: docker
+from: rockylinux:{{ VERSION }}
+
+%arguments
+	VERSION=9.3
+	WDIR=/home/user
+
+%environment
+        # Set up environment variables for container runtime
+        export VIRTUAL_ENV={{ WDIR }}/env
+        export PATH="$VIRTUAL_ENV/bin:$PATH"
+
+%files
+	../src/data.csv {{ WDIR }}/data.csv
+	../src/main.py /usr/local/bin/radon.py
+
+
+%post
+	dnf update -y && dnf install tree vim git \
+	python3 python3-pip python3-setuptools -y && \
+	ln -s /usr/bin/python3 /usr/bin/python 
+	python3 -m venv {{ WDIR }}/env
+	
+	source {{ WDIR }}/env/bin/activate
+	pip install --upgrade pip
+	pip install plotext
+	
+
+%runscript
+        # This is executed when you run the container
+        exec python /usr/local/bin/radon.py "$@"
+
+
+
+%labels
+	Author Pedro Martinez
+	Version 0.0.1
+	Name Radon program
+
+
