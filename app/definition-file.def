@@ -16,8 +16,7 @@ from: rockylinux:{{ VERSION }}
 
 
 %post
-	dnf update -y && dnf install tree vim git \
-	python3 python3-pip python3-setuptools -y && \
+	dnf update -y && dnf install python3 python3-pip python3-setuptools -y 
 	ln -s /usr/bin/python3 /usr/bin/python 
 	python3 -m venv {{ WDIR }}/env
 	
