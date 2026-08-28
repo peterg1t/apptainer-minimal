@@ -10,6 +10,7 @@ def execute_function(file_input: str):
     values=[]
     with open(file_input, mode="r", encoding="utf-8") as f:
         data = csv.reader(f, delimiter=',', skipinitialspace=True, quotechar='|')
+        next(data, None)
         for row in data:
             try:
                 days.append(int(row[0]))
